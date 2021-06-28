@@ -18,8 +18,9 @@ COPY default /etc/nginx/sites-enabled/default
 #RUN apt autoremove -y curl vim
 RUN apt clean
 
-RUN echo "nginx -g 'daemon off;'" > /entrypoint.sh
+RUN echo "#!/bin/bash" > /entrypoint.sh
+RUN echo "nginx -g 'daemon off;'" >> /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-#ENTRYPOINT ["/entrypoint.sh"]
-ENTRYPOINT ["/usr/sbin/nginx", "-g", "'daemon off;'"]
+ENTRYPOINT ["/entrypoint.sh"]
+#ENTRYPOINT ["/usr/sbin/nginx", "-g", "'daemon off;'"]
