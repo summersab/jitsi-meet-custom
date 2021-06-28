@@ -22,5 +22,6 @@ RUN echo "#!/bin/bash" > /entrypoint.sh
 RUN echo "nginx -g 'daemon off;'" >> /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT nginx -g 'daemon off;'
+#ENTRYPOINT ["/entrypoint.sh"]
 #ENTRYPOINT ["/usr/sbin/nginx", "-g", "'daemon off;'"]
