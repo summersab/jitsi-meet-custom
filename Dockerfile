@@ -18,4 +18,4 @@ COPY default /etc/nginx/sites-enabled/default
 #RUN apt autoremove -y curl vim
 RUN apt clean
 
-CMD ["nginx", "-g", "'daemon off;'"]
+ENTRYPOINT ["nginx", "-g", "'daemon off;'"]
