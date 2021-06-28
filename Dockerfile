@@ -18,4 +18,6 @@ COPY default /etc/nginx/sites-enabled/default
 #RUN apt autoremove -y curl vim
 RUN apt clean
 
+EXPOSE 10000
+EXPOSE 5349
 ENTRYPOINT nginx -g 'daemon off;'
