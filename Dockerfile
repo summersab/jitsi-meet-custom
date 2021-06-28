@@ -19,7 +19,7 @@ COPY default /etc/nginx/sites-enabled/default
 RUN apt clean
 
 RUN echo "nginx -g 'daemon off;'" > /entrypoint.sh
-RUN chmod +x /entrypoint
+RUN chmod +x /entrypoint.sh
 
 #ENTRYPOINT ["/entrypoint.sh"]
 ENTRYPOINT ["/usr/sbin/nginx", "-g", "'daemon off;'"]
