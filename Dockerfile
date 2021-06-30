@@ -10,7 +10,14 @@ RUN apt update
 # https://serverless.industries/2020/05/07/debconf-unattended-package-install.en.html
 RUN echo "jitsi-videobridge2 jitsi-videobridge/jvb-hostname string jitsi.nunimbus.com" | debconf-set-selections
 RUN echo "jitsi-meet-web-config jitsi-meet/cert-choice select Generate a new self-signed certificate (You will later get a chance to obtain a Let's encrypt certificate)" | debconf-set-selections
-RUN apt install -y jitsi-meet
+RUN echo "jitsi-meet-tokens jitsi-meet-tokens/appsecret password PASSWORD" | debconf-set-selections
+RUN echo "jitsi-meet-tokens jitsi-meet-tokens/appid string APP_ID" | debconf-set-selections
+
+RUN apt install -y jitsi-meet-turnserver jitsi-videobridge2 jitsi-meet-web jitsi-meet jitsi-meet-web-config jitsi-meet-tokens jitsi-upload-integrations jitsi-meet-prosody
+# jitsi-archive-keyring
+
+RUN apt-get install -y lua-luaossl libssl1.0 liblua5.2
+RUN luarocks install luajwtjitsi
 
 RUN rm /etc/nginx/sites-enabled/*
 COPY default /etc/nginx/sites-enabled/default
