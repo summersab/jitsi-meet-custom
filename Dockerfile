@@ -22,8 +22,8 @@ WORKDIR /src
 RUN luarocks download lua-cjson
 RUN luarocks unpack lua-cjson-2.1.0.6-1.src.rock
 WORKDIR /src/lua-cjson-2.1.0.6-1/lua-cjson
-RUN sed -i 's/len = lua_objlen(l, -1);/len = lua_rawlen(l, -1);/g' /lua-cjson-2.1.0.6-1/lua-cjson/lua_cjson.c
-RUN sed -i 's%\(Build defaults #\+\)%\1\nLUA_INCLUDE_DIR =   /usr/include/lua5.2%g' /lua-cjson-2.1.0.6-1/lua-cjson/Makefile
+RUN sed -i 's/len = lua_objlen(l, -1);/len = lua_rawlen(l, -1);/g' lua_cjson.c
+RUN sed -i 's%\(Build defaults #\+\)%\1\nLUA_INCLUDE_DIR =   /usr/include/lua5.2%g' Makefile
 
 RUN luarocks make
 RUN luarocks install luajwtjitsi
