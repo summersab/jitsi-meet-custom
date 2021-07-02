@@ -17,16 +17,15 @@ RUN apt-get install -y lua5.2 liblua5.2 luarocks libssl1.0-dev
 RUN luarocks install basexx
 RUN luarocks install luacrypto
 
-RUN mkdir src
-RUN cd src
 RUN luarocks download lua-cjson
 RUN luarocks unpack lua-cjson-2.1.0.6-1.src.rock
-RUN cd lua-cjson-2.1.0.6-1/lua-cjson
-RUN sed -i 's/len = lua_objlen(l, -1);/len = lua_rawlen(l, -1);/g' lua_cjson.c
-RUN sed -i 's%\(Build defaults #\+\)%\1\nLUA_INCLUDE_DIR =   /usr/include/lua5.2%g' Makefile
+RUN sed -i 's/len = lua_objlen(l, -1);/len = lua_rawlen(l, -1);/g' /lua-cjson-2.1.0.6-1/lua-cjson/lua_cjson.c
+RUN sed -i 's%\(Build defaults #\+\)%\1\nLUA_INCLUDE_DIR =   /usr/include/lua5.2%g' /lua-cjson-2.1.0.6-1/lua-cjson/Makefile
 
 RUN luarocks make
 RUN luarocks install luajwtjitsi
+
+RUN rm -r lua-cjson-2.1.0.6-1 lua-cjson-2.1.0.6-1.src.rock
 
 RUN echo "jitsi-videobridge2 jitsi-videobridge/jvb-hostname string meet.jitsi.local" | debconf-set-selections
 RUN echo "jitsi-meet-web-config jitsi-meet/cert-choice select Generate a new self-signed certificate (You will later get a chance to obtain a Let's encrypt certificate)" | debconf-set-selections
