@@ -47,7 +47,7 @@ RUN sed -i 's/JWT_APP_ID/{{ .Env.JWT_APP_ID }}/g' /etc/prosody/conf.avail/meet.j
 RUN sed -i 's/authentication = "token"/authentication = "{{ .Env.JWT_AUTH_TYPE }}"/g' /etc/prosody/conf.avail/meet.jitsi.local.cfg.lua
 RUN sed -i 's/443 ssl;/8080;/g' /etc/nginx/sites-available/meet.jitsi.local.conf
 
-RUN apt-get autoremove gcc curl software-properties-common apt-transport-https
+RUN apt-get autoremove -y gcc curl software-properties-common apt-transport-https
 RUN apt-get clean
 
 EXPOSE 8080
